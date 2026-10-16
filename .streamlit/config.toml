@@ -1,0 +1,7 @@
+[server]
+enableCORS = false
+enableXsrfProtection = false
+
+# This forces the deployment server to download full Git LFS assets
+[git]
+lfs = true
