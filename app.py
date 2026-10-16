@@ -641,7 +641,7 @@ wavelet_groups = {
 units = {
     "B": "Magnetic Field Intensity $(B) (nT)$",
     "rmsB_over_B": "Normalized magnetic field fluctuation amplitude $(rmsBoB)$",
-    "deltaB": "Fluctuation in B $(\delta B)$",
+    "deltaB": r"Fluctuation in B $(\delta B)$",
     "Np": "Proton Density $(N_p) (cm^{-3})$",
     "Vsw": "Bulk velocity $(V_{SW}) (km/s)$",
     "Tp": "Proton Temperature $(T_p) (K)$",
@@ -665,7 +665,7 @@ units_wavelet = {
 short_notations = {
     "B": "$B$",
     "rmsB_over_B": "$rmsBoB$",
-    "deltaB": "$\delta B$",
+    "deltaB": r"$\delta B$",
     "Np": "$N_p$",
     "Vsw": "$V_{SW}$",
     "Tp": "$T_p$",
@@ -1025,7 +1025,7 @@ if st.session_state.page_view == "main":
         )
     )
     
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 
 
@@ -1096,7 +1096,7 @@ if st.session_state.page_view == "main":
             margin=dict(l=40, r=20, t=40, b=10),
             legend=dict(orientation="h", yanchor="top", y=-0.2, xanchor="center", x=0.5)
         )
-        st.plotly_chart(fig_rt, use_container_width=True)
+        st.plotly_chart(fig_rt, width="stretch")
 
     # ------------------------------------------
     # MAP 2: ECLIPTIC PLANE (R, Phi) - Top View
@@ -1138,7 +1138,7 @@ if st.session_state.page_view == "main":
             margin=dict(l=40, r=40, t=40, b=10),
             legend=dict(orientation="h", yanchor="top", y=-0.2, xanchor="center", x=0.5)
         )
-        st.plotly_chart(fig_rp, use_container_width=True)
+        st.plotly_chart(fig_rp, width="stretch")
 
     st.markdown("<hr style='border: 1px solid rgba(255, 176, 32, 0.2);'>", unsafe_allow_html=True)
 
@@ -1339,7 +1339,7 @@ elif st.session_state.page_view == "parameters":
     # ==========================================
     _, sub_col, _ = st.columns([7, 1.5, 7])
     with sub_col:
-        if st.button("SUBMIT", use_container_width=True):
+        if st.button("SUBMIT", width="stretch"):
             if not phase1_selected and not phase2_selected:
                 st.warning("Please specify parameter subsets to generate localized telemetry data.")
             else:
@@ -1422,11 +1422,11 @@ elif st.session_state.page_view == "parameters":
     # ==========================================
     _, nav_col1, nav_col2, _ = st.columns([6, 2, 2, 6])
     with nav_col1:
-        if st.button("← Go Back", use_container_width=True):
+        if st.button("← Go Back", width="stretch"):
             st.session_state.page_view = "main"
             st.rerun()
     with nav_col2:
-        if st.button("🏠 Homepage", use_container_width=True):
+        if st.button("🏠 Homepage", width="stretch"):
             st.session_state.page_view = "main"
             st.rerun()
 
@@ -1544,7 +1544,7 @@ elif st.session_state.page_view == "catalog":
 
     event_table = st.dataframe(
     catalog_display,
-    use_container_width=True,
+    width="stretch",
     height=650,
     hide_index=True,
     on_select="rerun",
@@ -1573,7 +1573,7 @@ elif st.session_state.page_view == "catalog":
             img = Image.open(plot_path)
             st.image(
             img,
-            use_container_width=True
+            width="stretch"
         )
         else:
             st.warning(
@@ -1718,7 +1718,7 @@ elif st.session_state.page_view == "results":
 
     st.dataframe(
     preview_df.head(),
-    use_container_width=True
+    width="stretch"
 )
 
 
@@ -1741,11 +1741,11 @@ elif st.session_state.page_view == "results":
     st.markdown("---") 
     _, nav_col1, nav_col2, _ = st.columns([5, 1.5, 1.5, 5])
     with nav_col1:
-        if st.button("← Go Back", use_container_width=True):
+        if st.button("← Go Back", width="stretch"):
             st.session_state.page_view = "parameters"
             st.rerun()
     with nav_col2:
-        if st.button("🏠 Homepage", use_container_width=True):
+        if st.button("🏠 Homepage", width="stretch"):
             st.session_state.page_view = "main"
             st.rerun()
 
@@ -1844,7 +1844,7 @@ elif st.session_state.page_view == "statistics":
     
     with btn_col:
         # Use type="primary" so it matches the amber GUI color from your CSS
-        if st.button("Generate Plot", type="primary", use_container_width=True):
+        if st.button("Generate Plot", type="primary", width="stretch"):
             if bin_mapping and radial_selection in bin_mapping:
                 # Save the target image to session state so it survives Streamlit reruns
                 st.session_state.active_prob_plot = os.path.join(target_folder, bin_mapping[radial_selection])
@@ -1855,7 +1855,7 @@ elif st.session_state.page_view == "statistics":
     # 3. DISPLAY PLOT & DOWNLOAD BUTTON
     if "active_prob_plot" in st.session_state and os.path.exists(st.session_state.active_prob_plot):
         img_path = st.session_state.active_prob_plot
-        st.image(img_path, use_container_width=True)
+        st.image(img_path, width="stretch")
         
         # Read the file bytes to power the download button
         with open(img_path, "rb") as file:
@@ -1869,7 +1869,7 @@ elif st.session_state.page_view == "statistics":
                 data=img_bytes,
                 file_name=st.session_state.active_prob_name,
                 mime=mime_type,
-                use_container_width=True
+                width="stretch"
             )
     elif "active_prob_plot" in st.session_state:
         st.error(f"Image file missing or inaccessible at: {st.session_state.active_prob_plot}")
